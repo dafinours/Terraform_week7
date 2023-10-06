@@ -1,7 +1,7 @@
 resource "aws_security_group" "sg-demo" {
     name = "webserver-sg-dev"
     description = "Allow ssh and httpd"
-    vpc_id = aws_vpc.vpc1.id
+    vpc_id = aws_vpc. splunk-vpc.id
 
     ingress {
         description = "allow ssh"
@@ -12,8 +12,8 @@ resource "aws_security_group" "sg-demo" {
     }
     ingress {
         description = "allow http"
-        from_port = 80
-        to_port = 80
+        from_port = 8000
+        to_port = 8000
         protocol = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
@@ -24,7 +24,7 @@ resource "aws_security_group" "sg-demo" {
         cidr_blocks = ["0.0.0.0/0"]
     }
   tags= {
-    env = "Dev"
+    env = "prod"
   }
 
   
