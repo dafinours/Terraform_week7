@@ -1,8 +1,15 @@
-  #!/bin/bash
-sudo yum update -y 
-    sudo yum install wget -y  
-    sudo cd /opt
-    sudo wget -O splunk-9.0.4.1-419ad9369127-Linux-x86_64.tgz "https://download.splunk.com/products/splunk/releases/9.0.4.1/linux/splunk-9.0.4.1-419ad9369127-Linux-x86_64.tgz"
-    sudo tar -zxvf splunk-9.0.4.1-419ad9369127-Linux-x86_64.tgz -C /opt
-    sudo /opt/splunk/bin/splunk start --accept-license --answer-yes --no-prompt --seed-passwd "abcd1234"
-    sudo /opt/splunk/bin/splunk enable boot-start
+#!/bin/bash -x
+sudo yum update -y
+sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat-stable/jenkins.repo
+sudo rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key
+sudo yum upgrade -y
+
+## Install Java 11:
+sudo yum install java-11* -y
+
+## Install Jenkins then Enable the Jenkins service to start at boot :
+sudo yum install jenkins -y
+sudo systemctl enable jenkins
+
+## Start Jenkins as a service:
+sudo systemctl start jenkins
